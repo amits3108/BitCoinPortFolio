@@ -2,4 +2,10 @@
     <string name="app_name">BitCoinPortFolio</string>
     <string name="tv_dashboard">DashBoard</string>
     <string name="tv_rate_graph">Rate Graph</string>
+    <string name="tv_graph_name_is">Graph Name : </string>
+    <string name="tv_graph_unit_is">Graph Unit Used : </string>
+    <string name="tv_graph_description_is">Description : </string>
+    <string name="tv_bitcoin_portfolio">BitCoin PortFolio</string>
+    <string name="tv_usd_btc">USD/BTC</string>
+    <string name="tv_investment_history">Transaction History</string>
 </resources>

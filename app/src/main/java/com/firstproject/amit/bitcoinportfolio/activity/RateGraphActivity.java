@@ -2,7 +2,10 @@ package com.firstproject.amit.bitcoinportfolio.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firstproject.amit.bitcoinportfolio.R;
@@ -20,16 +23,29 @@ import java.util.List;
 public class RateGraphActivity extends BaseActivity {
     AreaChart areaChart;
     List<ChartData> value1;
+    private TextView tvGraphName, tvGraphUnit, tvGraphDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_rate_graph);
+        setToolBar();
+    }
+
+    private void setToolBar(){
+        Toolbar toolbar = findViewById(R.id.graph_toolbar);
+        if(toolbar!=null){
+            setSupportActionBar(toolbar);
+        }
     }
 
     @Override
     public void getId() {
         areaChart = (AreaChart) findViewById(R.id.area_chart);
+        tvGraphName = (TextView) findViewById(R.id.tv_graph_name);
+        tvGraphUnit = (TextView) findViewById(R.id.tv_graph_unit);
+        tvGraphDescription = (TextView) findViewById(R.id.tv_graph_description);
     }
 
     @Override
@@ -79,10 +95,18 @@ public class RateGraphActivity extends BaseActivity {
                 if (e == null) {
                     value1 = new ArrayList<>();
                     GraphDetailModel graphDetailModel = (GraphDetailModel) getUSDGraphDataApiCall.getResult();
-                    for (ValuesModel valuesModel : graphDetailModel.getValues()) {
-                        value1.add(new ChartData(valuesModel.getY(), (float) valuesModel.getX()));
+
+                    if(graphDetailModel.getStatus().equalsIgnoreCase("ok")) {
+                        for (ValuesModel valuesModel : graphDetailModel.getValues()) {
+                            value1.add(new ChartData(valuesModel.getY(), (float) valuesModel.getX()));
+                        }
+                        //Set Graph Details
+                        tvGraphName.append(" "+graphDetailModel.getName());
+                        tvGraphUnit.append(" "+graphDetailModel.getUnit());
+                        tvGraphDescription.append(" "+graphDetailModel.getDescription());
+
+                        setGraphData(value1);
                     }
-                    setGraphData(value1);
                 } else {
                     Toast.makeText(RateGraphActivity.this, "No Data found for graph From server", Toast.LENGTH_SHORT).show();
                 }
@@ -95,7 +119,7 @@ public class RateGraphActivity extends BaseActivity {
         value3.add(new ChartData(charDataValue));
         areaChart.setData(value3);
 
-
+        //graph Renovation
         areaChart.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         areaChart.setHorizontalScrollBarEnabled(true);
         areaChart.setVerticalScrollBarEnabled(true);

@@ -10,24 +10,12 @@ import java.util.ArrayList;
  */
 
 public class GraphDetailModel implements Parcelable {
-//    "status": "ok",
-//            "name": "Market Price (USD)",
-//            "unit": "USD",
-//            "period": "day",
-//            "description": "Average USD market price across major bitcoin exchanges.",
-//            "values": [
-//    {
-//        "x": 1504224000,
-//            "y": 4911.74
-//    },
-
     String status;
     String name;
     String unit;
     String period;
     String description;
     ArrayList<ValuesModel> values;
-
 
     protected GraphDetailModel(Parcel in) {
         status = in.readString();

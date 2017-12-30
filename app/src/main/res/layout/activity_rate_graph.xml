@@ -5,21 +5,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.firstproject.amit.bitcoinportfolio.activity.RateGraphActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/graph_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:gravity="left"
+                android:shadowColor="@color/colorGrayLight"
+                android:text="@string/tv_bitcoin_portfolio"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_twenty_five"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
     <TextView
         android:id="@+id/tv_rate_graph"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/tv_rate_graph"
-        android:textSize="@dimen/sp_twenty_five"
         android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/sp_twenty_five"
         android:textStyle="bold"
-        android:gravity="center"/>
+        android:layout_below="@id/graph_toolbar"/>
+
+    <TextView
+        android:id="@+id/tv_graph_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_rate_graph"
+        android:layout_marginTop="@dimen/dp_twenty"
+        android:gravity="left"
+        android:text="@string/tv_graph_name_is"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp_twenty" />
+
+    <TextView
+        android:id="@+id/tv_graph_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_graph_name"
+        android:gravity="left"
+        android:text="@string/tv_graph_unit_is"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp_twenty" />
+
+    <TextView
+        android:id="@+id/tv_graph_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_graph_unit"
+        android:gravity="left"
+        android:text="@string/tv_graph_description_is"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp_twenty" />
 
     <com.numetriclabz.numandroidcharts.AreaChart
         android:id="@+id/area_chart"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        app:show_datapoints="true"
-        android:layout_below="@id/tv_rate_graph"/>
-
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_graph_description"
+        android:scrollbars="horizontal"
+        app:show_datapoints="true" />
 </RelativeLayout>
