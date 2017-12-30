@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BitCoinPortFolio</string>
+    <string name="tv_dashboard">DashBoard</string>
+    <string name="tv_rate_graph">Rate Graph</string>
+</resources>

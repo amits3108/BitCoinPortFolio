@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorYellow">#FFFF55</color>
+    <color name="colorGreen">#00ff00</color>
+    <color name="colorPink">#FF55FF</color>
+    <color name="colorLightPink">#FFD4FF</color>
+    <color name="colorSkyBlue">#7FD4FF</color>
+    <color name="colorLightBlack">#B5B5B5</color>
+    <color name="colorOrange">#F3C849</color>
+    <color name="colorLightGreen">#D5FF00</color>
+    <color name="colorDarkBlue">#0000FF</color>
+    <color name="colorDarkGreen">#7FFF00</color>
+    <color name="colorGrayLight">#f2f2f2</color>
+    <color name="colorTableHeaderColor">#C3DEF1</color>
+    <color name="colorDotSelectedTable">#2778AD</color>
+    <color name="colorDotUnselectedTable">#999999</color>
+    <color name="colorAxis">#d6d6d6</color>
+</resources>
