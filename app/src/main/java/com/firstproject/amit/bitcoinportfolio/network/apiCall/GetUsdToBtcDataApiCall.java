@@ -53,33 +53,12 @@ public class GetUsdToBtcDataApiCall extends BaseApiCall {
     public void populateFromResponse(Object response) throws JSONException {
         System.out.println("  jsonResponse GetUsdToBtcDataApiCall  :- " + response);
         if (response instanceof JSONArray) {
-//            JSONObject json = (JSONObject) response;
-//            parseResponseCode(response);
             JSONObject jsonObject = (JSONObject) ((JSONArray) response).get(0);
-
-            UsdToBtcModel usdToBtcModel = new UsdToBtcModel();
-            if (jsonObject.has("name"))
-                usdToBtcModel.setName(jsonObject.getString("name"));
-            if (jsonObject.has("symbol"))
-                usdToBtcModel.setSymbol(jsonObject.getString("symbol"));
-            if (jsonObject.has("price_usd"))
-                usdToBtcModel.setPrice_usd(jsonObject.getString("price_usd"));
-            if (jsonObject.has("price_btc"))
-                usdToBtcModel.setPrice_btc(jsonObject.getString("price_btc"));
-
-            resultObj = usdToBtcModel;
-//            SharedPreferencesData.setSharedPrefUsdToBtc(context,jsonObject);
-//            Type type = new TypeToken<UsdToBtcModel>() {}.getType();
-//            resultObj = new Gson().fromJson(jsonObject.toString(), type);
+            Type type = new TypeToken<UsdToBtcModel>() {
+            }.getType();
+            resultObj = new Gson().fromJson(jsonObject.toString(), type);
         }
     }
-//
-//    private void parseResponse(JSONObject object) throws JSONException {
-////        String message  = object.optString("about");
-//        resultObj = object;
-//
-//    }
-
 
     //    @Override
     public Object getRequest() {

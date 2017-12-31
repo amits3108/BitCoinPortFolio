@@ -15,14 +15,11 @@ import java.util.ArrayList;
 
 public class DbManager {
     private DbOpenHelper sqliteHelperImage;
-
     private SQLiteDatabase sqliteDataBase = null;
-
 
     public DbManager(Context mContext) {
         sqliteHelperImage = new DbOpenHelper(mContext);
     }
-
 
     public boolean isDbOpen() {
         if (sqliteDataBase != null && sqliteDataBase.isOpen())
@@ -39,8 +36,6 @@ public class DbManager {
                 sqliteDataBase = sqliteHelperImage.getReadableDatabase();
             }
         } catch (Exception e) {
-
-
             e.printStackTrace();
         }
     }
@@ -75,7 +70,6 @@ public class DbManager {
         values.put(DbOpenHelper.COLUMN_INVESTMENT_TIMESTAMP, investmentModel.getTimeStamp());
 
         insertId = sqliteDataBase.insert(DbOpenHelper.TABLE_NAME_INVESTMENTS_DETAILS, null, values);
-
         return insertId;
     }
 
@@ -107,117 +101,18 @@ public class DbManager {
         return investmentModel;
     }
 
-    /////////////////////// NOTIFICATION TABLE QUERIES  ///////////////////////////////
-    /*public long saveOrUpdateNotification(NotificationModel notificationModel) {
-        ContentValues values = new ContentValues();
-        long insertId = 0;
-        try {
-            values.put(DbOpenHelper.COLUMN_NOTIFICATION_TEMPLATE_NAME, notificationModel.getTemplateName());
-            values.put(DbOpenHelper.COLUMN_NOTIFICATION_DESCRIPTION, notificationModel.getDesc());
-            values.put(DbOpenHelper.COLUMN_NOTIFICATION_KPI_NAME, notificationModel.getKpiName());
-            values.put(DbOpenHelper.COLUMN_NOTIFICATION_PUSH_TYPE, notificationModel.getPushType());
-            values.put(DbOpenHelper.COLUMN_NOTIFICATION_TIMESTAMP, notificationModel.getTimeStamp());
-            values.put(DbOpenHelper.COLUMN_NOTIFICATION_SERVER_URL, notificationModel.getServerUrl());
-            values.put(DbOpenHelper.COLUMN_NOTIFICATION_DELETE, notificationModel.isDelete() ? 1 : 0);
-            values.put(DbOpenHelper.COLUMN_NOTIFICATION_READ, notificationModel.isRead() ? 1 : 0);
+    public int calculateTotalInvestment() {
+        int reminingTotalValue, BuyingValue = 0, SoldValue = 0;
+        ArrayList<InvestmentModel> investmentModelArrayList = getInvestMentList();
+        for (InvestmentModel investmentModel : investmentModelArrayList) {
+            if (investmentModel.isBuy())
+                BuyingValue = BuyingValue + investmentModel.getTotalPrice();
 
-            if (!hasNotificationExists(notificationModel.getTimeStamp(), notificationModel.getServerUrl())) {
-                insertId = sqliteDataBase.insert(DbOpenHelper.TABLE_NAME_NOTIFICATION, null, values);
-            } else {
-                String whereClause = DbOpenHelper.COLUMN_NOTIFICATION_TIMESTAMP + "=" + notificationModel.getTimeStamp() + " AND " + DbOpenHelper.COLUMN_NOTIFICATION_SERVER_URL + " like '%" + notificationModel.getServerUrl() + "%'";
-                insertId = sqliteDataBase.update(DbOpenHelper.TABLE_NAME_NOTIFICATION, values, whereClause, null);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (!investmentModel.isBuy())
+                SoldValue = SoldValue + investmentModel.getTotalPrice();
         }
-        return insertId;
+        reminingTotalValue = BuyingValue - SoldValue;
+        return reminingTotalValue;
     }
-
-    public boolean hasNotificationExists(String timeStamp, String serverUrl) {
-        boolean hasNotificationExists = false;
-        try {
-            String whereClause = "";
-            if (timeStamp != null) {
-                whereClause = DbOpenHelper.COLUMN_NOTIFICATION_TIMESTAMP + "=?" + " AND " + DbOpenHelper.COLUMN_NOTIFICATION_SERVER_URL + " like '%" + serverUrl + "%'";
-            }
-            Cursor cursor = sqliteDataBase.query(DbOpenHelper.TABLE_NAME_NOTIFICATION, null, whereClause, new String[]{timeStamp}, null, null, null);
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                hasNotificationExists = true;
-//                Log.e("NOTIFICATION_TIMESTAMP", cursor.getString(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_TIMESTAMP)));
-//                Log.e("NOTIFICATION_DELETE", cursor.getString(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_DELETE)));
-//                Log.e("NOTIFICATION_READ", cursor.getString(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_READ)));
-                cursor.moveToNext();
-            }
-            cursor.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return hasNotificationExists;
-    }
-
-    public ArrayList<NotificationModel> getNotifications(String timeStamp, boolean isShowUnreadOnly, String serverUrl) {
-        //NOTE: Pass the timeStamp null for get All notifications. Otherwise seletected timeStamp notifications is fetched from the DB.
-        ArrayList<NotificationModel> notificatonList = new ArrayList<>();
-        String whereClause = "";
-        if (timeStamp != null) {
-            whereClause = DbOpenHelper.COLUMN_NOTIFICATION_TIMESTAMP + "=" + timeStamp + " AND ";
-        }
-
-        if (serverUrl != null) {
-            whereClause = whereClause + DbOpenHelper.COLUMN_NOTIFICATION_SERVER_URL + " like '%" + serverUrl + "%'";
-        }
-
-        *//*if (timeStamp != null && isShowUnreadOnly) {
-            whereClause = whereClause + " AND ";
-        }*//*
-
-        if (isShowUnreadOnly) {
-            whereClause = whereClause + " AND " + DbOpenHelper.COLUMN_NOTIFICATION_READ + "=0";
-        }
-
-        Cursor cursor = sqliteDataBase.query(DbOpenHelper.TABLE_NAME_NOTIFICATION, null, whereClause, null, null, null, DbOpenHelper.COLUMN_NOTIFICATION_TIMESTAMP + " desc ", null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            NotificationModel notificationModel = evaluateNotificationModel(cursor);
-            notificatonList.add(notificationModel);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return notificatonList;
-    }
-
-    private NotificationModel evaluateNotificationModel(Cursor cursor) {
-        NotificationModel notificationModel = new NotificationModel();
-        try {
-//            cursor.getString(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_ID));
-            notificationModel.setTemplateName(cursor.getString(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_TEMPLATE_NAME)));
-            notificationModel.setDesc(cursor.getString(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_DESCRIPTION)));
-            notificationModel.setKpiName(cursor.getString(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_KPI_NAME)));
-            notificationModel.setPushType(cursor.getInt(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_PUSH_TYPE)));
-            notificationModel.setTimeStamp(cursor.getString(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_TIMESTAMP)));
-            notificationModel.setServerUrl(cursor.getString(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_SERVER_URL)));
-            notificationModel.setDelete(cursor.getInt(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_DELETE)) != 0);
-            notificationModel.setRead(cursor.getInt(cursor.getColumnIndex(DbOpenHelper.COLUMN_NOTIFICATION_READ)) != 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return notificationModel;
-    }
-
-    public int deleteNotification(NotificationModel notificationModel) {
-        //NOTE: Pass the null in timeStamp all the notifications will be deleted from the DB. Otherwise Selected timeStamp is deleted.
-        String whereClause = null;
-        if (notificationModel.getTimeStamp() != null) {
-            whereClause = DbOpenHelper.COLUMN_NOTIFICATION_TIMESTAMP + "=" + notificationModel.getTimeStamp() + " AND " + DbOpenHelper.COLUMN_NOTIFICATION_SERVER_URL + " like '%" + notificationModel.getServerUrl() + "%'";
-        }
-
-        int rowsAffected = sqliteDataBase.delete(DbOpenHelper.TABLE_NAME_NOTIFICATION, whereClause, null);
-        Log.e("Rows deleted ", rowsAffected + "");
-        return rowsAffected;
-    }
-*/
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
 
 }

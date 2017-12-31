@@ -10,5 +10,6 @@
     <dimen name="dp_twenty">20dp</dimen>
     <dimen name="dp_fifteen">15dp</dimen>
     <dimen name="dp_ten">10dp</dimen>
+    <dimen name="dp_five">5dp</dimen>
 
 </resources>

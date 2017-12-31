@@ -28,6 +28,7 @@ import com.firstproject.amit.bitcoinportfolio.network.api.ApiCall;
 import com.firstproject.amit.bitcoinportfolio.network.apiCall.GetUSDGraphDataApiCall;
 import com.firstproject.amit.bitcoinportfolio.network.apiCall.GetUsdToBtcDataApiCall;
 import com.firstproject.amit.bitcoinportfolio.utils.Constant;
+import com.firstproject.amit.bitcoinportfolio.utils.SharedPreferencesData;
 import com.numetriclabz.numandroidcharts.ChartData;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
     private RecyclerView rvInvestMentHistory;
     private TextView tvUsdBtc;
     private TextView tvUsdBtcValue;
+    private TextView tvUserInvestMent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +49,11 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         setToolBar();
     }
 
-    private void setToolBar(){
+    private void setToolBar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
-        if(toolbar!=null){
+        if (toolbar != null) {
             setSupportActionBar(toolbar);
-            plusButton = (ImageView)toolbar.findViewById(R.id.img_plus);
+            plusButton = (ImageView) toolbar.findViewById(R.id.img_plus);
             plusButton.setOnClickListener(DashBoardActivity.this);
         }
     }
@@ -62,12 +64,12 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         rvInvestMentHistory = (RecyclerView) findViewById(R.id.rv_investment_history);
         tvUsdBtc = (TextView) findViewById(R.id.tv_usd_btc);
         tvUsdBtcValue = (TextView) findViewById(R.id.tv_usd_btc_value);
+        tvUserInvestMent = (TextView) findViewById(R.id.tv_user_investment);
     }
 
     @Override
     public void setData() {
-        getInvestMentHistory();
-        setAdapter();
+        refreshLists();
         getUsdToBtcServerData();
     }
 
@@ -78,7 +80,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.img_plus:
                 Intent intent = new Intent(new Intent(DashBoardActivity.this, AddInvestMentActivity.class));
                 startActivityForResult(intent, Constant.REQUEST_CODE_ADD_INVESTMENT);
@@ -111,12 +113,23 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
                 if (usdToBtcModel.getName().equalsIgnoreCase("Bitcoin")) {
                     tvUsdBtc.setText("USD / " + usdToBtcModel.getSymbol().toUpperCase());
                     tvUsdBtcValue.setText("$" + usdToBtcModel.getPrice_usd() + "/" + usdToBtcModel.getPrice_btc());
+
+                    SharedPreferencesData.setSharedPrefUsdToBtc(DashBoardActivity.this, usdToBtcModel);
+                    setUserInvestment();
                 }
 //                } else {
 //                    Toast.makeText(DashBoardActivity.this, "No Data found for Conversion From server", Toast.LENGTH_SHORT).show();
 //                }
             }
         }, false);
+    }
+
+    private void setUserInvestment() {
+        DbController dbController = DbController.getInstance();
+        int investment = dbController.calculateTotalInvestment(DashBoardActivity.this);
+        UsdToBtcModel usdToBtcModel = SharedPreferencesData.getSharedPrefUsdToBtcModel(DashBoardActivity.this);
+        float btcValue = ((Float.parseFloat(usdToBtcModel.getPrice_btc()) * investment) / Float.parseFloat(usdToBtcModel.getPrice_usd()));
+        tvUserInvestMent.setText(getString(R.string.tv_user_total_investment) + " : $" + investment + " (" + btcValue + " BTC)");
     }
 
     public void refreshLists() {
@@ -130,6 +143,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.REQUEST_CODE_ADD_INVESTMENT && resultCode == Constant.RESULT_CODE_FROM_ADD_INVESMENT_DONE) {
             refreshLists();
+            setUserInvestment();
         }
     }
 }

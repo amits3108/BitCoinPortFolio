@@ -20,5 +20,6 @@
     <string name="tv_total_value">Total Value</string>
     <string name="tv_trading_date">Trade date</string>
     <string name="tv_amount">Amount</string>
+    <string name="tv_user_total_investment">Total investment</string>
 
 </resources>

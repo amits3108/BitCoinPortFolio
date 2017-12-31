@@ -47,4 +47,9 @@ public class DbController {
         DbManager dbManager = getInstanceDb(context);
         return dbManager.getInvestMentList();
     }
+
+    public int calculateTotalInvestment(Context context) {
+        DbManager dbManager = getInstanceDb(context);
+        return dbManager.calculateTotalInvestment();
+    }
 }

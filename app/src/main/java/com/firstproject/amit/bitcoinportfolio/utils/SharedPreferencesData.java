@@ -21,13 +21,6 @@ public class SharedPreferencesData {
     private static final String PRICE_IN_USD = "PRICE_IN_USD";
     private static final String PRICE_IN_BTC = "PRICE_IN_BTC";
 
-
-//    if(usdToBtcModel.getName().equalsIgnoreCase("Bitcoin")) {
-//        tvUsdBtc.setText("USD / "+usdToBtcModel.getSymbol().toUpperCase());
-//        tvUsdBtcValue.setText("$" + usdToBtcModel.getPrice_usd() + "/" + usdToBtcModel.getPrice_btc());
-//    }
-
-
     public static void setSharedPrefUsdToBtc(Context context, UsdToBtcModel usdToBtcModel) {
         SharedPreferences preferences = context.getSharedPreferences(SHARED_PREF_USD_TO_BTC, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

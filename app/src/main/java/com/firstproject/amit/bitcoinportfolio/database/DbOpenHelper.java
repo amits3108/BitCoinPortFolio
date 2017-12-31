@@ -41,9 +41,6 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        UserPreference.getInstance(context).setStringField(UserPreference.FIELD_TIME_STAMP_MESSAGE, "");
-//        UserPreference.getInstance(context).setBooleanField(UserPreference.FIELD_IS_FIRST_TIME, true);
-
         try {
             db.execSQL("DROP TABLE IF EXISTS " + DbOpenHelper.TABLE_NAME_INVESTMENTS_DETAILS);
         } catch (Exception e) {

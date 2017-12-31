@@ -2,12 +2,11 @@ package com.firstproject.amit.bitcoinportfolio.activity;
 
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,18 +29,13 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
-import com.numetriclabz.numandroidcharts.AreaChart;
-//import com.numetriclabz.numandroidcharts.ChartData;
-//import com.numetriclabz.numandroidcharts.LineChart;
 import com.github.mikephil.charting.charts.LineChart;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RateGraphLineActivity extends BaseActivity implements OnChartGestureListener, OnChartValueSelectedListener {
     private LineChart areaChart;
-    //    List<ChartData> value1;
     private TextView tvGraphName, tvGraphUnit, tvGraphDescription;
     private ArrayList<Entry> values;
 
@@ -56,6 +50,7 @@ public class RateGraphLineActivity extends BaseActivity implements OnChartGestur
         Toolbar toolbar = findViewById(R.id.graph_toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
+            toolbar.setNavigationIcon(R.drawable.ic_back);
         }
     }
 
@@ -75,7 +70,6 @@ public class RateGraphLineActivity extends BaseActivity implements OnChartGestur
 
     @Override
     public void setListener() {
-
     }
 
     private void getGraphDataFromServer() {
@@ -88,8 +82,6 @@ public class RateGraphLineActivity extends BaseActivity implements OnChartGestur
 
                     values = new ArrayList<Entry>();
                     if (graphDetailModel.getStatus().equalsIgnoreCase("ok")) {
-                        //TODO: When populating the TO much data than graph is distorted
-                        //TODO: need to search out the Zoom In/Out functionality.
                         for (ValuesModel valuesModel : graphDetailModel.getValues()) {
                             values.add(new Entry(valuesModel.getX(), valuesModel.getY(), getResources().getDrawable(R.drawable.star)));
                         }
@@ -111,19 +103,13 @@ public class RateGraphLineActivity extends BaseActivity implements OnChartGestur
         areaChart.setOnChartGestureListener(this);
         areaChart.setOnChartValueSelectedListener(this);
         areaChart.setDrawGridBackground(false);
-
         // no description text
         areaChart.getDescription().setEnabled(false);
-
         // enable touch gestures
         areaChart.setTouchEnabled(true);
-
         // enable scaling and dragging
         areaChart.setDragEnabled(true);
         areaChart.setScaleEnabled(true);
-        // mChart.setScaleXEnabled(true);
-        // mChart.setScaleYEnabled(true);
-
         // if disabled, scaling can be done on x- and y-axis separately
         areaChart.setPinchZoom(true);
 
@@ -160,25 +146,11 @@ public class RateGraphLineActivity extends BaseActivity implements OnChartGestur
 
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
-
         areaChart.getAxisRight().setEnabled(false);
-
-        //mChart.getViewPortHandler().setMaximumScaleY(2f);
-        //mChart.getViewPortHandler().setMaximumScaleX(2f);
-
-        // add data
-//        setGraphData(45, 100);
-
-//        mChart.setVisibleXRange(20);
-//        mChart.setVisibleYRange(20f, AxisDependency.LEFT);
-//        mChart.centerViewTo(20, 50, AxisDependency.LEFT);
-
         areaChart.animateX(2000);
         //mChart.invalidate();
-
         // get the legend (only possible after setting data)
         Legend l = areaChart.getLegend();
-
         // modify the legend ...
         l.setForm(Legend.LegendForm.LINE);
     }
@@ -195,7 +167,6 @@ public class RateGraphLineActivity extends BaseActivity implements OnChartGestur
         } else {
             // create a dataset and give it a type
             set1 = new LineDataSet(values, "DataSet 1");
-
             set1.setDrawIcons(false);
 
             // set the line to be drawn like this "- - - - - -"
@@ -219,65 +190,68 @@ public class RateGraphLineActivity extends BaseActivity implements OnChartGestur
             } else {
                 set1.setFillColor(Color.BLACK);
             }
-
             ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
             dataSets.add(set1); // add the datasets
 
             // create a data object with the datasets
             LineData data = new LineData(dataSets);
-
             // set data
             areaChart.setData(data);
         }
     }
 
     @Override
-    public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
     }
 
     @Override
     public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-
     }
 
     @Override
     public void onChartLongPressed(MotionEvent me) {
-
     }
 
     @Override
     public void onChartDoubleTapped(MotionEvent me) {
-
     }
 
     @Override
     public void onChartSingleTapped(MotionEvent me) {
-
     }
 
     @Override
     public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-
     }
 
     @Override
     public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-
     }
 
     @Override
     public void onChartTranslate(MotionEvent me, float dX, float dY) {
-
     }
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-
     }
 
     @Override
     public void onNothingSelected() {
-
     }
 }

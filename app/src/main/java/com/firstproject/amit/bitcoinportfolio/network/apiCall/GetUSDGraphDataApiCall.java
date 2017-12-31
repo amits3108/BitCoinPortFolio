@@ -53,19 +53,10 @@ public class GetUSDGraphDataApiCall extends BaseApiCall {
             resultObj = new Gson().fromJson(response.toString(),type);
         }
     }
-//
-//    private void parseResponse(JSONObject object) throws JSONException {
-////        String message  = object.optString("about");
-//        resultObj = object;
-//
-//    }
-
 
     //    @Override
     public Object getRequest() {
         JSONObject postObject = null;
-        //            Constants.setUrl(Constants.REQUEST_TYPE_ABOUT_US);
-//        postObject = new JSONObject();
         System.out.println("  jsonRequest GetUSDGraphDataApiCall :- " + postObject);
         return postObject;
     }

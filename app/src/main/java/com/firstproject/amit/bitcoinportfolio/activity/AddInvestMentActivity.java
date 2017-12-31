@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -14,7 +16,6 @@ import com.firstproject.amit.bitcoinportfolio.interfaces.DateChangeListener;
 import com.firstproject.amit.bitcoinportfolio.R;
 import com.firstproject.amit.bitcoinportfolio.controller.DbController;
 import com.firstproject.amit.bitcoinportfolio.fragment.DatePickerFragment;
-import com.firstproject.amit.bitcoinportfolio.interfaces.RefreshListListener;
 import com.firstproject.amit.bitcoinportfolio.model.InvestmentModel;
 import com.firstproject.amit.bitcoinportfolio.utils.Constant;
 
@@ -43,6 +44,7 @@ public class AddInvestMentActivity extends BaseActivity implements View.OnClickL
         Toolbar toolbar = findViewById(R.id.add_investment_toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
+            toolbar.setNavigationIcon(R.drawable.ic_back);
             tvSave = (TextView) toolbar.findViewById(R.id.tv_save);
             tvSave.setOnClickListener(this);
         }
@@ -139,25 +141,18 @@ public class AddInvestMentActivity extends BaseActivity implements View.OnClickL
         dbController.saveInvestmentsDetails(AddInvestMentActivity.this, investmentModel);
     }
 
-//    @Override
-//    public boolean onKey(View view, int i, KeyEvent keyEvent) {
-//        switch (keyEvent.getAction()) {
-//            case ACTION_UP:
-//                totalPrice = amount * rate;
-//                tvTotalPriceValue.setText(totalPrice);
-//                break;
-//        }
-//        return true;
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 
-//    @Override
-//    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-//        switch (keyEvent.getAction()) {
-//            case ACTION_UP:
-//                totalPrice = amount * rate;
-//                tvTotalPriceValue.setText(totalPrice);
-//                break;
-//        }
-//        return false;
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
 }
