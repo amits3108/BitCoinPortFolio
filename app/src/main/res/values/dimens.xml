@@ -2,11 +2,13 @@
 <resources>
     <dimen name="sp_twenty">20sp</dimen>
     <dimen name="sp_twenty_five">25sp</dimen>
+    <dimen name="sp_Thirty">30sp</dimen>
+    <dimen name="sp_fifteen">15sp</dimen>
+
 
     <dimen name="dp_fifty">50dp</dimen>
     <dimen name="dp_twenty">20dp</dimen>
     <dimen name="dp_fifteen">15dp</dimen>
     <dimen name="dp_ten">10dp</dimen>
-    <dimen name="sp_Thirty">30sp</dimen>
-    <dimen name="sp_fifteen">15sp</dimen>
+
 </resources>
