@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.firstproject.amit.bitcoinportfolio.activity.RateGraphActivity">
+    tools:context="com.firstproject.amit.bitcoinportfolio.activity.RateGraphLineActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/graph_toolbar"
@@ -73,11 +73,10 @@
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/sp_twenty" />
 
-    <com.numetriclabz.numandroidcharts.AreaChart
-        android:id="@+id/area_chart"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/area_chart_line"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/tv_graph_description"
-        android:scrollbars="horizontal"
-        app:show_datapoints="true" />
+        android:scrollbars="horizontal" />
 </RelativeLayout>

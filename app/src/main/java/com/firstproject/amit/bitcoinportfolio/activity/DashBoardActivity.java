@@ -84,7 +84,7 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
                 startActivityForResult(intent, Constant.REQUEST_CODE_ADD_INVESTMENT);
                 break;
             case R.id.usd_btc_view:
-                startActivity(new Intent(DashBoardActivity.this,RateGraphActivity.class));
+                startActivity(new Intent(DashBoardActivity.this, RateGraphLineActivity.class));
                 break;
         }
     }
