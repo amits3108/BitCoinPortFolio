@@ -79,22 +79,23 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv_investment_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/usd_btc_view"
-            android:layout_marginTop="@dimen/dp_fifteen"
-            android:text="@string/tv_investment_history"
-            android:textSize="@dimen/sp_twenty"
-            android:background="@color/colorGrayLight"
-            android:textColor="@color/cardview_dark_background"/>
+        <!--<TextView-->
+        <!--android:id="@+id/tv_investment_history"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/usd_btc_view"-->
+        <!--android:layout_marginTop="@dimen/dp_fifteen"-->
+        <!--android:text="@string/tv_investment_history"-->
+        <!--android:textSize="@dimen/sp_twenty"-->
+        <!--android:background="@color/colorGrayLight"-->
+        <!--android:textColor="@color/cardview_dark_background"/>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_investment_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rv_investment_history"/>
+            android:layout_marginTop="@dimen/dp_fifteen"
+            android:layout_below="@id/usd_btc_view" />
 
     </RelativeLayout>
 </RelativeLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightBlack"
+    android:elevation="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_ten">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_buy_Or_Sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Buy"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="@dimen/sp_twenty_five"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/rate_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="@dimen/sp_twenty_five"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_amount"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="@dimen/sp_twenty_five"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/amount_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="@dimen/sp_twenty_five"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_total_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_total_value"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="@dimen/sp_twenty_five"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/tv_total_value_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="@dimen/sp_twenty_five"
+                    android:textStyle="normal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_fifteen"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_trade_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_trading_date"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="@dimen/sp_twenty_five"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/tv_trade_date_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_fifteen"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="@dimen/sp_twenty_five" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
