@@ -28,14 +28,13 @@ public class RateGraphActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_rate_graph);
         setToolBar();
     }
 
-    private void setToolBar(){
+    private void setToolBar() {
         Toolbar toolbar = findViewById(R.id.graph_toolbar);
-        if(toolbar!=null){
+        if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
     }
@@ -96,14 +95,14 @@ public class RateGraphActivity extends BaseActivity {
                     value1 = new ArrayList<>();
                     GraphDetailModel graphDetailModel = (GraphDetailModel) getUSDGraphDataApiCall.getResult();
 
-                    if(graphDetailModel.getStatus().equalsIgnoreCase("ok")) {
+                    if (graphDetailModel.getStatus().equalsIgnoreCase("ok")) {
                         for (ValuesModel valuesModel : graphDetailModel.getValues()) {
                             value1.add(new ChartData(valuesModel.getY(), (float) valuesModel.getX()));
                         }
                         //Set Graph Details
-                        tvGraphName.append(" "+graphDetailModel.getName());
-                        tvGraphUnit.append(" "+graphDetailModel.getUnit());
-                        tvGraphDescription.append(" "+graphDetailModel.getDescription());
+                        tvGraphName.append(" " + graphDetailModel.getName());
+                        tvGraphUnit.append(" " + graphDetailModel.getUnit());
+                        tvGraphDescription.append(" " + graphDetailModel.getDescription());
 
                         setGraphData(value1);
                     }

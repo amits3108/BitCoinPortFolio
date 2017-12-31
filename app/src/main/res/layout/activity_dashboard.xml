@@ -63,7 +63,7 @@
                     android:id="@+id/tv_usd_btc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tv_usd_btc"
+                    android:text=""
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/sp_twenty_five"
                     android:textStyle="bold"/>
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/cardview_dark_background"
-                    android:text="$ 13,333.08"
+                    android:text=""
                     android:textSize="@dimen/sp_Thirty"
                     android:textStyle="bold"/>
             </LinearLayout>

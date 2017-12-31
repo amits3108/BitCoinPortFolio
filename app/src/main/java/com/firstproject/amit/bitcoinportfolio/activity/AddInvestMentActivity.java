@@ -5,21 +5,20 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.firstproject.amit.bitcoinportfolio.DateChangeListener;
+import com.firstproject.amit.bitcoinportfolio.interfaces.DateChangeListener;
 import com.firstproject.amit.bitcoinportfolio.R;
 import com.firstproject.amit.bitcoinportfolio.controller.DbController;
 import com.firstproject.amit.bitcoinportfolio.fragment.DatePickerFragment;
+import com.firstproject.amit.bitcoinportfolio.interfaces.RefreshListListener;
 import com.firstproject.amit.bitcoinportfolio.model.InvestmentModel;
+import com.firstproject.amit.bitcoinportfolio.utils.Constant;
 
 import java.util.Calendar;
-
-import static android.view.KeyEvent.ACTION_UP;
 
 public class AddInvestMentActivity extends BaseActivity implements View.OnClickListener, DateChangeListener {
 
@@ -82,6 +81,7 @@ public class AddInvestMentActivity extends BaseActivity implements View.OnClickL
             case R.id.tv_save:
                 getEnteredData();
                 saveInDB(totalPrice, rate, amount);
+                setResult(Constant.RESULT_CODE_FROM_ADD_INVESMENT_DONE);
                 finish();
                 break;
             case R.id.cv_investment_date:
