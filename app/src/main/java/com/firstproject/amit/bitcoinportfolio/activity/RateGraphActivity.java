@@ -80,10 +80,10 @@ public class RateGraphActivity extends BaseActivity {
 
         areaChart.setData(value3);
 
-//        List<String> type = new ArrayList<>();
-//        type.add(value1);
-//        type.add(value2);
-//        areaChart.setLegends(type);
+//        List<String> legends = new ArrayList<>();
+//        legends.add("X-Axis");
+//        legends.add("Y-Axix");
+//        areaChart.setLegends(legends);
     }
 
     private void getGraphDataFromServer() {
@@ -96,9 +96,22 @@ public class RateGraphActivity extends BaseActivity {
                     GraphDetailModel graphDetailModel = (GraphDetailModel) getUSDGraphDataApiCall.getResult();
 
                     if (graphDetailModel.getStatus().equalsIgnoreCase("ok")) {
-                        for (ValuesModel valuesModel : graphDetailModel.getValues()) {
-                            value1.add(new ChartData(valuesModel.getY(), (float) valuesModel.getX()));
+                        //TODO: When populating the TO much data than graph is distorted
+                        //TODO: need to search out the Zoom In/Out functionality.
+//                        for (ValuesModel valuesModel : graphDetailModel.getValues()) {
+//                            value1.add(new ChartData(valuesModel.getY(), (float) valuesModel.getX()));
+//                        }
+                        float lowestValue = (float) graphDetailModel.getValues().get(0).getX();
+                        for (int i = 0; i <= 4; i++) {
+                            ChartData chartData = new ChartData(graphDetailModel.getValues().get(i).getY(), (float) graphDetailModel.getValues().get(i).getX());
+                            value1.add(chartData);
+                            if (graphDetailModel.getValues().get(i).getX() < lowestValue) {
+                                lowestValue = graphDetailModel.getValues().get(i).getX();
+                                chartData.setLowest_value(lowestValue);
+                            }
+//                            value1.add(new ChartData(graphDetailModel.getValues().get(i).getY(), (float) graphDetailModel.getValues().get(i).getX()));
                         }
+
                         //Set Graph Details
                         tvGraphName.append(" " + graphDetailModel.getName());
                         tvGraphUnit.append(" " + graphDetailModel.getUnit());
@@ -118,13 +131,17 @@ public class RateGraphActivity extends BaseActivity {
         value3.add(new ChartData(charDataValue));
         areaChart.setData(value3);
 
+        areaChart.setNestedScrollingEnabled(true);
+        areaChart.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+
         //graph Renovation
-        areaChart.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+//        areaChart.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         areaChart.setHorizontalScrollBarEnabled(true);
         areaChart.setVerticalScrollBarEnabled(true);
         areaChart.canScrollHorizontally(View.SCROLL_AXIS_HORIZONTAL);
         areaChart.canScrollVertically(View.SCROLL_AXIS_VERTICAL);
         areaChart.setScrollContainer(true);
+
         areaChart.invalidate();
     }
 
