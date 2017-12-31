@@ -31,7 +31,7 @@ public class AddInvestMentActivity extends BaseActivity implements View.OnClickL
     private CardView cvInvestmentDate;
     private Calendar calendar;
     private int year, month, date;
-    private String currentTimeStamp;
+    private String currentTimeStamp, dateString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,8 @@ public class AddInvestMentActivity extends BaseActivity implements View.OnClickL
         month = calendar.get(Calendar.MONTH);
         date = calendar.get(Calendar.DATE);
         currentTimeStamp = String.valueOf(calendar.getTimeInMillis());
-        tvTradingDateValue.setText(new StringBuilder().append(date).append("/").append(month).append("/").append(year));
+        dateString = new StringBuilder().append(date).append("/").append(month).append("/").append(year).toString();
+        tvTradingDateValue.setText(dateString);
     }
 
     @Override
@@ -122,12 +123,13 @@ public class AddInvestMentActivity extends BaseActivity implements View.OnClickL
     public void dateChanged(String timeStamp, int date, int month, int year) {
         System.out.println(" timeStamp " + timeStamp + " date " + date + " month " + month + " year " + year);
         currentTimeStamp = timeStamp;
-        tvTradingDateValue.setText(new StringBuilder().append(date).append("/").append(month).append("/").append(year));
+        dateString = new StringBuilder().append(date).append("/").append(month).append("/").append(year).toString();
+        tvTradingDateValue.setText(dateString);
     }
 
     private void saveInDB(int totalPrice, int rate, int amount) {
         InvestmentModel investmentModel = new InvestmentModel();
-        investmentModel.setTimeStamp(currentTimeStamp);
+        investmentModel.setTimeStamp(dateString);
         investmentModel.setBuy(isBuy);
         investmentModel.setAmount(amount);
         investmentModel.setRate(rate);

@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.firstproject.amit.bitcoinportfolio.R;
 import com.firstproject.amit.bitcoinportfolio.model.InvestmentModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Created by amit on 31-12-2017.
@@ -42,7 +45,11 @@ public class InvestMentHistoryAdapter extends RecyclerView.Adapter<InvestMentHis
             holder.tvAmountValue.setText(String.valueOf(investmentModel.getAmount()));
             holder.tvRateValue.setText(String.valueOf(investmentModel.getRate()));
             holder.tvTotalValuePrice.setText(String.valueOf(investmentModel.getTotalPrice()));
-            holder.tvTradingDate.setText(String.valueOf(investmentModel.getTimeStamp()));
+
+//            Date date = new Date(Long.parseLong(investmentModel.getTimeStamp()));
+//            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//            String formattedDate = formatter.format(date);
+            holder.tvTradingDate.setText(investmentModel.getTimeStamp());
         }
     }
 

@@ -17,7 +17,15 @@ import android.widget.Toast;
 import com.firstproject.amit.bitcoinportfolio.R;
 import com.firstproject.amit.bitcoinportfolio.adapter.InvestMentHistoryAdapter;
 import com.firstproject.amit.bitcoinportfolio.controller.DbController;
+import com.firstproject.amit.bitcoinportfolio.model.GraphDetailModel;
 import com.firstproject.amit.bitcoinportfolio.model.InvestmentModel;
+import com.firstproject.amit.bitcoinportfolio.model.UsdToBtcModel;
+import com.firstproject.amit.bitcoinportfolio.model.ValuesModel;
+import com.firstproject.amit.bitcoinportfolio.network.HttpRequestHandler;
+import com.firstproject.amit.bitcoinportfolio.network.api.ApiCall;
+import com.firstproject.amit.bitcoinportfolio.network.apiCall.GetUSDGraphDataApiCall;
+import com.firstproject.amit.bitcoinportfolio.network.apiCall.GetUsdToBtcDataApiCall;
+import com.numetriclabz.numandroidcharts.ChartData;
 
 import java.util.ArrayList;
 
@@ -81,5 +89,33 @@ public class DashBoardActivity extends BaseActivity implements View.OnClickListe
         InvestMentHistoryAdapter investMentHistoryAdapter = new InvestMentHistoryAdapter(DashBoardActivity.this, investmentModelArrayList);
         rvInvestMentHistory.setLayoutManager(new LinearLayoutManager(DashBoardActivity.this));
         rvInvestMentHistory.setAdapter(investMentHistoryAdapter);
+    }
+
+    private void getUsdToBtcServerData() {
+        final GetUsdToBtcDataApiCall getUsdToBtcDataApiCall = new GetUsdToBtcDataApiCall(DashBoardActivity.this);
+        HttpRequestHandler.getInstance(DashBoardActivity.this).executeRequest(getUsdToBtcDataApiCall, new ApiCall.OnApiCallCompleteListener() {
+
+            @Override
+            public void onComplete(Exception e) {
+                if (e == null) {
+//                    value1 = new ArrayList<>();
+                    UsdToBtcModel graphDetailModel = (UsdToBtcModel) getUsdToBtcDataApiCall.getResult();
+
+//                    if(graphDetailModel.getStatus().equalsIgnoreCase("ok")) {
+//                        for (ValuesModel valuesModel : graphDetailModel.getValues()) {
+//                            value1.add(new ChartData(valuesModel.getY(), (float) valuesModel.getX()));
+//                        }
+//                        //Set Graph Details
+//                        tvGraphName.append(" "+graphDetailModel.getName());
+//                        tvGraphUnit.append(" "+graphDetailModel.getUnit());
+//                        tvGraphDescription.append(" "+graphDetailModel.getDescription());
+//
+//                        setGraphData(value1);
+//                    }
+                } else {
+                    Toast.makeText(DashBoardActivity.this, "No Data found for Conversion From server", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, false);
     }
 }
