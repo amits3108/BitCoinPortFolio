@@ -37,12 +37,13 @@ public class InvestMentHistoryAdapter extends RecyclerView.Adapter<InvestMentHis
     public void onBindViewHolder(MyViewHolder holder, int position) {
         InvestmentModel investmentModel = investmentModelArrayList.get(position);
 //        MyViewHolder myViewHolder = (MyViewHolder) holder;
-        holder.tvBuyOrSell.setText(investmentModel.isBuy() ? "Buy" : "Sell");
-        holder.tvAmountValue.setText(investmentModel.getAmount());
-        holder.tvRateValue.setText(investmentModel.getRate());
-        holder.tvTotalValuePrice.setText(investmentModel.getTotalPrice());
-        holder.tvTradingDate.setText(investmentModel.getTimeStamp());
-
+        if (investmentModelArrayList.size() > 0 && holder != null) {
+            holder.tvBuyOrSell.setText(investmentModel.isBuy() ? "Buy" : "Sell");
+            holder.tvAmountValue.setText(String.valueOf(investmentModel.getAmount()));
+            holder.tvRateValue.setText(String.valueOf(investmentModel.getRate()));
+            holder.tvTotalValuePrice.setText(String.valueOf(investmentModel.getTotalPrice()));
+            holder.tvTradingDate.setText(String.valueOf(investmentModel.getTimeStamp()));
+        }
     }
 
     @Override
